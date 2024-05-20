@@ -60,8 +60,7 @@ def extract_metadata(json_file):
 def semantic_chunking(text, data_frame):
     # Create Text Splitter
     hf_embeddings = HuggingFaceEmbeddings()
-    text_splitter = SemanticChunker(hf_embeddings)
-
+    text_splitter = SemanticChunker(embeddings=hf_embeddings, number_of_chunks=50)
     # Split Text
     docs = text_splitter.create_documents([text])
 
@@ -139,6 +138,7 @@ def main(input_directory, output_folder):
 
         # Chunk the text from the JSON data 
         chunks = semantic_chunking(text, df)
+        print(f"number of chunks: {len(chunks)}")
 
         # Create a dictionary to store the extracted data 
         video_data = {
@@ -148,11 +148,9 @@ def main(input_directory, output_folder):
 
         # Create the output file path
         output_file = os.path.join(output_folder, file_name)
-
         # Save the result as JSON
         with open(output_file, 'w') as file:
             json.dump(video_data, file, indent=4, ensure_ascii=False)
-
         print(f"Extraction completed. Output file: {output_file}")
 
 if __name__ == '__main__':
@@ -160,7 +158,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Extract metadata and chunks from input JSON files.')
     parser.add_argument('input_directory', type=str, help='Path to the input directory containing JSON files')
     parser.add_argument('output_folder', type=str, help='Path to the output folder')
-    #parser.add_argument('chunk_size', type=int, help='Maximum number of words in a chunk')
     args = parser.parse_args()
 
     # Run the extraction
