@@ -3,6 +3,7 @@ import json
 import weaviate
 import os
 import argparse
+from dotenv import load_dotenv
 from huggingface_hub import login
 from transformers import AutoModel
 
@@ -55,7 +56,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate embeddings from chunks.')
     parser.add_argument('input_directory', type=str, help='Path to the input directory containing JSON files with chunks')
     args = parser.parse_args()
-
+    # Load environment variables from .env file
+    load_dotenv()
     # Log in to the Hugging Face Hub using the token
     login(token=os.getenv('HUGGINGFACE_TOKEN'))
     # Initialize Weaviate client

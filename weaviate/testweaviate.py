@@ -2,6 +2,7 @@
 import json
 import weaviate
 import os
+from dotenv import load_dotenv
 from huggingface_hub import login
 from transformers import AutoModel
 
@@ -24,6 +25,8 @@ def main(client, model):
     print(json.dumps(result, indent=4, ensure_ascii=False))
 
 if __name__ == '__main__':
+    # Load environment variables from .env file
+    load_dotenv()
     # Log in to the Hugging Face Hub using the token
     login(token=os.getenv('HUGGINGFACE_TOKEN'))
     # Initialize Weaviate client
