@@ -8,7 +8,6 @@ from transformers import AutoModel
 
 # Main function
 def main(input_directory, client, model):
-
     # Get the list of JSON files in the input directory
     json_files = [f for f in os.listdir(input_directory) if f.endswith('.json')]
     # Make sure that json_files have already not been populated. 
@@ -26,7 +25,6 @@ def main(input_directory, client, model):
         metadata = json_data["metadata"]
         
         with client.batch(batch_size=100) as batch:
-            
             # Iterate through each chunk in json_data and generate embeddings
             for chunk in json_data["chunks"]:
                 # Extract text, start time and end time
@@ -59,7 +57,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Log in to the Hugging Face Hub using the token
-    login()
+    login(token=os.getenv('HUGGINGFACE_TOKEN'))
     # Initialize Weaviate client
     client = weaviate.Client("http://155.54.95.149:8080")
 

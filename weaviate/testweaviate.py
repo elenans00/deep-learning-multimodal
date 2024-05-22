@@ -2,12 +2,11 @@
 import json
 import weaviate
 import os
-import argparse
 from huggingface_hub import login
 from transformers import AutoModel
 
 # Main function
-def main(client, model): #n_records aqui o ver abajo para limite de 10!!
+def main(client, model):
 
     # Hacemos búsqueda concreta para prueba
     emb = model.encode("clase del viernes 29 de abril")
@@ -22,11 +21,11 @@ def main(client, model): #n_records aqui o ver abajo para limite de 10!!
               .with_limit(10) # limit the number of records returned
               .with_near_vector(nearVector).do())
     
-    print(json.dumps(result, indent=4))
+    print(json.dumps(result, indent=4, ensure_ascii=False))
 
 if __name__ == '__main__':
     # Log in to the Hugging Face Hub using the token
-    login()
+    login(token=os.getenv('HUGGINGFACE_TOKEN'))
     # Initialize Weaviate client
     client = weaviate.Client("http://155.54.95.149:8080")
 
