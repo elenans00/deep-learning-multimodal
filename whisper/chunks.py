@@ -58,9 +58,12 @@ def extract_metadata(json_file):
 
 # Chunk the text from the JSON file
 def semantic_chunking(text, data_frame):
+    # Compute number_of_chunks based on duration of entire video
+    duration = data_frame.iloc[-1]['end'] # End time of last word in DataFrame
+    n_chunks = int(duration / 60) # Split the video into 1-minute chunks
     # Create Text Splitter
     hf_embeddings = HuggingFaceEmbeddings()
-    text_splitter = SemanticChunker(embeddings=hf_embeddings, number_of_chunks=50)
+    text_splitter = SemanticChunker(embeddings=hf_embeddings, number_of_chunks=n_chunks)
     # Split Text
     docs = text_splitter.create_documents([text])
 
@@ -97,10 +100,6 @@ def semantic_chunking(text, data_frame):
 
 # Main function
 def main(input_directory, output_folder):
-    # Create the output folder if it doesn't exist
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
     # Get the list of JSON files in the input directory
     json_files = [f for f in os.listdir(input_directory) if f.endswith('.json')]
 
@@ -146,6 +145,9 @@ def main(input_directory, output_folder):
             "chunks": chunks
         }
 
+        # Create the output folder if it doesn't exist
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
         # Create the output file path
         output_file = os.path.join(output_folder, file_name)
         # Save the result as JSON
