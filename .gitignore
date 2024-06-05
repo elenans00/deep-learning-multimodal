@@ -1,9 +1,8 @@
-ollama/ollama
-ollama/venv/
+ollama/
 weaviate/venvweaviate/
+weaviate/testweaviate.py
 weaviate/.env
 whisper/2022-2023_ALF_EduardoMartinezGracia_online/
 whisper/2022-2023_ALF_EduardoMartinezGracia_pizarra/
 whisper/__pycache__/
 whisper/venvwhisper/
-whisper/wetransfer_gmt20220503-165305_recording_2048x1152-mp4_2024-02-14_0925.zip
