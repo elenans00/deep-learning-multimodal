@@ -6,3 +6,27 @@ whisper/2022-2023_ALF_EduardoMartinezGracia_online/
 whisper/2022-2023_ALF_EduardoMartinezGracia_pizarra/
 whisper/__pycache__/
 whisper/venvwhisper/
+
+# Backend-specific ignores
+App/backend/.env
+App/backend/venvbackend/
+App/backend/__pycache__/
+
+# Frontend-specific ignores
+App/frontend/node_modules/
+App/frontend/dist/
+App/frontend/public/videos/
+App/frontend/*.local
+# Logs
+App/frontend/logs
+App/frontend/*.log
+App/frontend/npm-debug.log*
+App/frontend/yarn-debug.log*
+App/frontend/yarn-error.log*
+# Editor directories and files
+App/frontend/.vscode/
+App/frontend/.idea
+App/frontend/*.suo
+App/frontend/*.ntvs*
+App/frontend/*.njsproj
+App/frontend/*.sln
